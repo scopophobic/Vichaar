@@ -10,6 +10,7 @@ from config import settings
 import numpy as np
 import json
 import requests
+from fastapi.responses import Response
 
 app = FastAPI()
 
@@ -22,7 +23,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Pydantic models for auth endpoints
+# Pydantic models fo
+# using clerk here 
 class SignUpRequest(BaseModel):
     email: str
     password: str
@@ -42,6 +44,10 @@ class AuthResponse(BaseModel):
 @app.get("/")
 async def root():
     return {"message": "Vichaar API - Idea Validation Service"}
+
+@app.get("/favicon.ico")
+async def favicon():
+    return Response(status_code=204)
 
 @app.get("/health")
 async def health_check():
